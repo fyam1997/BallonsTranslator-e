@@ -73,3 +73,6 @@ explicit = true
 torch = [
     { index = "pytorch-cu124", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
 ]
+torchvision = [
+    { index = "pytorch-cu124", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
+]
