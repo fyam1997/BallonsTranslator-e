@@ -635,8 +635,6 @@ class MainWindow(mainwindow_cls):
         shortcutZoomOut.activated.connect(self.canvas.gv.scale_down_signal)
         shortcutCtrlD = QShortcut(QKeySequence("Ctrl+D"), self)
         shortcutCtrlD.activated.connect(self.shortcutCtrlD)
-        shortcutSpace = QShortcut(QKeySequence("Space"), self)
-        shortcutSpace.activated.connect(self.shortcutSpace)
         shortcutSelectAll = QShortcut(QKeySequence.StandardKey.SelectAll, self)
         shortcutSelectAll.activated.connect(self.shortcutSelectAll)
 
@@ -651,6 +649,9 @@ class MainWindow(mainwindow_cls):
         shortcutUnderline.activated.connect(self.shortcutUnderline)
 
         shortcutDelete = QShortcut(QKeySequence.StandardKey.Delete, self)
+        shortcutDelete.activated.connect(self.shortcutDelete)
+
+        shortcutDelete = QShortcut(QKeySequence.StandardKey.Backspace, self)
         shortcutDelete.activated.connect(self.shortcutDelete)
 
         drawpanel_shortcuts = {'hand': 'H', 'rect': 'R', 'inpaint': 'J', 'pen': 'B'}
@@ -724,12 +725,6 @@ class MainWindow(mainwindow_cls):
         if self.centralStackWidget.currentIndex() == 0:
             if self.textPanel.isVisible():
                 self.st_manager.set_blkitems_selection(True)
-
-    def shortcutSpace(self):
-        if self.centralStackWidget.currentIndex() == 0:
-            if self.drawingPanel.isVisible():
-                if self.drawingPanel.currentTool == self.drawingPanel.rectTool:
-                    self.drawingPanel.rectPanel.inpaint_btn.click()
 
     def shortcutBold(self):
         if self.textPanel.formatpanel.isVisible():

@@ -502,8 +502,24 @@ class Canvas(QGraphicsScene):
         elif key in QNUMERIC_KEYS:
             value = QNUMERIC_KEYS[key]
             self.set_active_layer_transparency(value * 10)
+        elif key == QKEY.Key_X:
+            if self.painting:
+                erasing = self.image_edit_mode == ImageEditMode.PenTool
+                self.addStrokeImageItem(self.inpaintLayer.mapFromScene(self.scene_cursor_pos()), self.erasing_pen, erasing)
+        elif key == QKEY.Key_Space:
+            if self.painting:
+                self.addStrokeImageItem(self.inpaintLayer.mapFromScene(self.scene_cursor_pos()), self.painting_pen)
+
         return super().keyPressEvent(event)
-    
+
+    def keyReleaseEvent(self, event, QKeyEvent=None):
+        key = event.key()
+        if key == QKEY.Key_X:
+            self.finish_erasing.emit(self.stroke_img_item)
+        if key == QKEY.Key_Space:
+            if self.stroke_img_item is not None:
+                self.finish_painting.emit(self.stroke_img_item)
+
     def set_active_layer_transparency(self, value: int):
         if self.textEditMode():
             opacity = self.textLayer.opacity() * 100
