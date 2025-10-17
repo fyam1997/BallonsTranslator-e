@@ -20,6 +20,7 @@ dependencies = [
     "json5>=0.12.1",
     "keyboard>=0.13.5",
     "langdetect>=1.0.9",
+    "mahotas>=1.4.18",
     "mecab-python3>=1.0.10 ; sys_platform == 'darwin'",
     "msl-loadlib>=1.0.0 ; sys_platform == 'win32'",
     "multivolumefile>=0.2.3",

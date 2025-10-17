@@ -69,6 +69,7 @@ dependencies = [
     { name = "json5" },
     { name = "keyboard" },
     { name = "langdetect" },
+    { name = "mahotas" },
     { name = "mecab-python3", marker = "sys_platform == 'darwin'" },
     { name = "msl-loadlib", marker = "sys_platform == 'win32'" },
     { name = "multivolumefile" },
@@ -129,6 +130,7 @@ requires-dist = [
     { name = "json5", specifier = ">=0.12.1" },
     { name = "keyboard", specifier = ">=0.13.5" },
     { name = "langdetect", specifier = ">=1.0.9" },
+    { name = "mahotas", specifier = ">=1.4.18" },
     { name = "mecab-python3", marker = "sys_platform == 'darwin'", specifier = ">=1.0.10" },
     { name = "msl-loadlib", marker = "sys_platform == 'win32'", specifier = ">=1.0.0" },
     { name = "multivolumefile", specifier = ">=0.2.3" },
@@ -1942,6 +1944,41 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/7a/c1/27428a2ff348e994ab4f8777d3a0ad510b6b92d37718e5887d2da99952a2/lxml-6.0.2-pp311-pypy311_pp73-manylinux_2_26_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:60fa43be34f78bebb27812ed90f1925ec99560b0fa1decdb7d12b84d857d31e9", size = 4272119, upload-time = "2025-09-22T04:04:51.801Z" },
     { url = "https://files.pythonhosted.org/packages/f0/d0/3020fa12bcec4ab62f97aab026d57c2f0cfd480a558758d9ca233bb6a79d/lxml-6.0.2-pp311-pypy311_pp73-manylinux_2_26_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:21c73b476d3cfe836be731225ec3421fa2f048d84f6df6a8e70433dff1376d5a", size = 4417314, upload-time = "2025-09-22T04:04:55.024Z" },
     { url = "https://files.pythonhosted.org/packages/6c/77/d7f491cbc05303ac6801651aabeb262d43f319288c1ea96c66b1d2692ff3/lxml-6.0.2-pp311-pypy311_pp73-win_amd64.whl", hash = "sha256:27220da5be049e936c3aca06f174e8827ca6445a4353a1995584311487fc4e3e", size = 3518768, upload-time = "2025-09-22T04:04:57.097Z" },
+]
+
+[[package]]
+name = "mahotas"
+version = "1.4.18"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "numpy" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/f6/71/bf99df8458c0ca05cb9a16f400e66c09b37b15ea124aaa3becb577555cc5/mahotas-1.4.18.tar.gz", hash = "sha256:e6bd2eea4143a24f381b30c64078503cd8ffa20ca493e39ffa29f9d024d9cf8b", size = 1533222, upload-time = "2024-07-17T21:11:56.204Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/e1/83/f291cb8d7897509e967a9bb0313b585e4ab81a45d0e4cab5e31cc599f6e3/mahotas-1.4.18-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:0238a4665d55f936c6dfb26293e7348482cf9c71bd1caec3a896bfb988b6623b", size = 1877317, upload-time = "2024-07-17T21:10:14.071Z" },
+    { url = "https://files.pythonhosted.org/packages/b9/7b/3c09b1bb0c0c045a33cef7763d094a7857c7475564e223391845f176cdb2/mahotas-1.4.18-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:a33ef7e8bd0ff08990d08274a7d7aaaf1143540983de3e036295d6668ce12cb6", size = 1798019, upload-time = "2024-07-17T21:10:17.99Z" },
+    { url = "https://files.pythonhosted.org/packages/54/1a/2f6dbb52599c9da9aac6da0f60950f6b7eed54a3d38779bf0f80d41b3eb9/mahotas-1.4.18-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:9f890b79891184a4a6dcc274da847fbf54fe4b8fa8839705af677cdb63536f22", size = 5788791, upload-time = "2024-07-17T21:10:23.018Z" },
+    { url = "https://files.pythonhosted.org/packages/ed/88/075d55003e28ff9964cd72b5d3c48f37b4320ab2d209010970005aac63a0/mahotas-1.4.18-cp310-cp310-win32.whl", hash = "sha256:e1804359325ebd5a08998c7d3837ea10883a66678007662e4c849013f7d084ea", size = 1712133, upload-time = "2024-07-17T21:10:25.79Z" },
+    { url = "https://files.pythonhosted.org/packages/2b/3c/2ca2b24f311586f341ba254670cc320944e7d3cf1cc741ce5a622611c668/mahotas-1.4.18-cp310-cp310-win_amd64.whl", hash = "sha256:43a605408b2e9fd77f4adb0ff301bc5c096979cab06da32788fc18c3b06378db", size = 1731332, upload-time = "2024-07-17T21:10:28.215Z" },
+    { url = "https://files.pythonhosted.org/packages/6c/15/fab81001a735766f8bbe7080e714b9582817bd479b915977e748199f00d9/mahotas-1.4.18-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:974050ee67913ac2396b4889247577f7202038dc328b50a07f83887c56ca9774", size = 1877309, upload-time = "2024-07-17T21:10:30.758Z" },
+    { url = "https://files.pythonhosted.org/packages/4f/f2/3125072f76b7809bd66748b2f6872dbeb0e72f43fdd94e73a9d3df95aa4c/mahotas-1.4.18-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:28c93bdfefd4cf271bf2b30b69c130ab3cac5d840dcd3b5ae6e7f6d3648533aa", size = 1798029, upload-time = "2024-07-17T21:10:33.063Z" },
+    { url = "https://files.pythonhosted.org/packages/81/fc/691ed6d7aedaf8caa30786e88462edd84e78d2b50d320a07937e2ce41fb1/mahotas-1.4.18-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:8f4a41dd3b49bc2e5240b265b9ab35a6793c20ddcb3b392f3ba27a0940086de6", size = 5804451, upload-time = "2024-07-17T21:10:36.365Z" },
+    { url = "https://files.pythonhosted.org/packages/85/45/eded44b0d6d1e4642c87eb79b6f568b8a2cbe7183dbb6aec185ea6a54786/mahotas-1.4.18-cp311-cp311-win32.whl", hash = "sha256:a4e70ead2a2bf6e8ad9a70f9c33fe0e752edeeea1fc5e8e934efcf29d90d69f2", size = 1712194, upload-time = "2024-07-17T21:10:39.565Z" },
+    { url = "https://files.pythonhosted.org/packages/e0/0c/3710525e4d3a2cb28852cb77878d8268e3e56c52cdb4018972685a11e6cd/mahotas-1.4.18-cp311-cp311-win_amd64.whl", hash = "sha256:7a9a7b2a9e3e9d9818a901232fc68a2f7bef31483150ac39acb7d56f86e0754c", size = 1731319, upload-time = "2024-07-17T21:10:41.922Z" },
+    { url = "https://files.pythonhosted.org/packages/cb/78/07865c11f24f539e05ad951e261051d1177f8c4432fb1e230d9d8e9132a2/mahotas-1.4.18-cp312-cp312-macosx_10_9_x86_64.whl", hash = "sha256:5314778e8154fb69ddb299e07c48d1998eb3e9567724e93d5018940854975204", size = 1875870, upload-time = "2024-07-17T21:10:46.503Z" },
+    { url = "https://files.pythonhosted.org/packages/1d/84/d325af34ce1c977f71503d5bddb5798cfaddbcdd30047caafcf013b2daf2/mahotas-1.4.18-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:fe05bf5ee3498cd9411adf7c9fb8e6278194a04a1491c1a6d807658d4af36bb4", size = 1795431, upload-time = "2024-07-17T21:10:49.136Z" },
+    { url = "https://files.pythonhosted.org/packages/3b/04/ebfd6f54a5919a4f344e498a541c26ca1dbf5e7628f464cbf35ea580308a/mahotas-1.4.18-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:17b6a5420fd71227cd3e875e42a01818b3d94cacb075f93afed36fab63390b75", size = 5817840, upload-time = "2024-07-17T21:10:51.901Z" },
+    { url = "https://files.pythonhosted.org/packages/7e/7f/1b89107058873a36e0aa0edd03dbbc18c647c3b672f391270d8b7f056f37/mahotas-1.4.18-cp312-cp312-win32.whl", hash = "sha256:839787784f916c4f03a43e92bb22184920213e5ece0fa0c826f5bdf92eaaff4b", size = 1712598, upload-time = "2024-07-17T21:10:54.487Z" },
+    { url = "https://files.pythonhosted.org/packages/a7/93/8ab4c4e10235b0acef65561a33b303b66d2d1fd180545872798db05f0e09/mahotas-1.4.18-cp312-cp312-win_amd64.whl", hash = "sha256:579e6f48549b06eb32cfa9501e320194a9d8a97fe35a7832b6b1f3fa104cfb16", size = 1730892, upload-time = "2024-07-17T21:10:56.55Z" },
+    { url = "https://files.pythonhosted.org/packages/2a/84/7c9025ffed11db2798c804ed30ccdde47344ab2d464e704377b46c103803/mahotas-1.4.18-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:94efd28e96cb47891b168f06513b329140deca175f3dee6a68b60af239b02d64", size = 1877276, upload-time = "2024-07-17T21:11:30.43Z" },
+    { url = "https://files.pythonhosted.org/packages/60/3a/dc0fb2422d3c3b0eac35f9d02bbc03448b267fec83f86906305f03ed2967/mahotas-1.4.18-cp39-cp39-macosx_11_0_arm64.whl", hash = "sha256:c3ab43c6ee731ed71c2a0defd3f5bc619ad151fa72792cd1d0af4258e59b3f55", size = 1798003, upload-time = "2024-07-17T21:11:32.32Z" },
+    { url = "https://files.pythonhosted.org/packages/63/82/f444433c0b1b03c1e40308dcaa6a710774b9e513784a3661eb5867634e02/mahotas-1.4.18-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:6a7fcce88073fc540495bb9db71af675da227562a6cb485e31c5c1ecf2cab8c6", size = 5779493, upload-time = "2024-07-17T21:11:35.005Z" },
+    { url = "https://files.pythonhosted.org/packages/a2/9e/be2eb036fdb86dc0ab9945a863425fa5e29f636f9f1ad9af75b2dd6c3ffb/mahotas-1.4.18-cp39-cp39-win32.whl", hash = "sha256:31a3bb0d899b611aeed101ff3718ac55df764f6562528d457bd3c18f765bbb04", size = 1712078, upload-time = "2024-07-17T21:11:37.339Z" },
+    { url = "https://files.pythonhosted.org/packages/7d/5a/2e89a81a018fa77c269cf45ffe99e2ccc756db4ca53ed25d2fb321d76537/mahotas-1.4.18-cp39-cp39-win_amd64.whl", hash = "sha256:bd35f2e7f70da27e27c995821203c1fadccf4d0a2600383aad7a97ba014559a5", size = 1731148, upload-time = "2024-07-17T21:11:39.504Z" },
+    { url = "https://files.pythonhosted.org/packages/2c/61/9e6eb28471de73bce7d0f3529eeab3f715d78b536fcc5ef6ea5a475821cc/mahotas-1.4.18-pp39-pypy39_pp73-macosx_10_15_x86_64.whl", hash = "sha256:16aaa64cfb09782212ecb1072c5367f5d8d4c8494dd9bae1d4af7243ebebd07e", size = 1795961, upload-time = "2024-07-17T21:11:48.269Z" },
+    { url = "https://files.pythonhosted.org/packages/cd/42/87136b2c60e74cf9d4c5625d997089dd3d1df7edf77ab18026250ea17eec/mahotas-1.4.18-pp39-pypy39_pp73-macosx_11_0_arm64.whl", hash = "sha256:72a98e4b22238e3cc5598b07ee8f4955f4d8cd4c3cb40388cfef96968079f813", size = 1745700, upload-time = "2024-07-17T21:11:50.581Z" },
+    { url = "https://files.pythonhosted.org/packages/91/6b/9a2234246d59a50a151f813b7eeb0ff4a633a4a0e020c33b64f4c323bf5f/mahotas-1.4.18-pp39-pypy39_pp73-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:ccd7d857ad59ee33f2359c8dab56b5d93d8476b7228f3cc00465f6d804c14015", size = 1851101, upload-time = "2024-07-17T21:11:52.644Z" },
+    { url = "https://files.pythonhosted.org/packages/98/fa/33d12523dbf8c9e9a2f573c1d5035bb6b536a982edcc4604b32f1858ddaa/mahotas-1.4.18-pp39-pypy39_pp73-win_amd64.whl", hash = "sha256:bb9e75ee04420dacd06129039d6618dfec19604ba8bef6aba596f54a19f9a91e", size = 1731539, upload-time = "2024-07-17T21:11:54.634Z" },
 ]
 
 [[package]]
