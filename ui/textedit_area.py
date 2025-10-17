@@ -3,7 +3,6 @@ from typing import List, Union
 from qtpy.QtWidgets import QStackedWidget, QSizePolicy, QTextEdit, QScrollArea, QGraphicsDropShadowEffect, QVBoxLayout, QApplication, QHBoxLayout, QSizePolicy, QLabel, QLineEdit
 from qtpy.QtCore import Signal, Qt, QMimeData, QEvent, QPoint, QSize
 from qtpy.QtGui import QIntValidator, QColor, QFocusEvent, QInputMethodEvent, QDragEnterEvent, QDropEvent, QKeyEvent, QTextCursor, QMouseEvent, QDrag, QPixmap, QKeySequence
-import keyboard
 import webbrowser
 import numpy as np
 
@@ -48,12 +47,15 @@ class SelectTextMiniMenu(Widget):
         self.hide()
 
     def on_saladict(self):
-        self.app.clipboard().setText(self.selected_text)
-        self.block_current_editor.emit(True)
-        keyboard.press(pcfg.saladict_shortcut)
-        keyboard.release(pcfg.saladict_shortcut)
-        self.block_current_editor.emit(False)
-        self.hide()
+        # keyboard is not working in mac
+        pass
+        # self.app.clipboard().setText(self.selected_text)
+        # self.block_current_editor.emit(True)
+        # import keyboard
+        # keyboard.press(pcfg.saladict_shortcut)
+        # keyboard.release(pcfg.saladict_shortcut)
+        # self.block_current_editor.emit(False)
+        # self.hide()
 
 
 class SourceTextEdit(QTextEdit):
