@@ -67,7 +67,7 @@ class ModuleThread(QThread):
     def pipeline_finished(self):
         if self.imgtrans_proj is None:
             return True
-        elif self.finished_counter == len(self.imgtrans_proj.pages):
+        elif self.finished_counter == len(self.imgtrans_proj.target_pages):
             return True
         return False
 
@@ -231,7 +231,7 @@ class TranslateThread(ModuleThread):
             page_key = self.pipeline_pagekey_queue.pop(0)
             self.blockSignals(True)
             try:
-                self._translate_page(self.imgtrans_proj.pages, page_key, emit_finished=False)
+                self._translate_page(self.imgtrans_proj.target_pages, page_key, emit_finished=False)
             except Exception as e:
                 
                 # TODO: allowing retry/skip/terminate
@@ -303,7 +303,7 @@ class ImgtransThread(QThread):
 
     def runImgtransPipeline(self, imgtrans_proj: ProjImgTrans):
         self.imgtrans_proj = imgtrans_proj
-        self.num_pages = len(self.imgtrans_proj.pages)
+        self.num_pages = len(self.imgtrans_proj.target_pages)
         self.job = self._imgtrans_pipeline
         self.start()
 
@@ -346,7 +346,7 @@ class ImgtransThread(QThread):
         self.ocr_counter = 0
         self.translate_counter = 0
         self.inpaint_counter = 0
-        self.num_pages = num_pages = len(self.imgtrans_proj.pages)
+        self.num_pages = num_pages = len(self.imgtrans_proj.target_pages)
 
         low_vram_trans = False
         if self.translator is not None:
@@ -357,7 +357,7 @@ class ImgtransThread(QThread):
         if self.parallel_trans and cfg_module.enable_translate:
             self.translate_thread.runTranslatePipeline(self.imgtrans_proj)
 
-        for imgname in self.imgtrans_proj.pages:
+        for imgname in self.imgtrans_proj.target_pages:
             img = self.imgtrans_proj.read_img(imgname)
             mask = blk_list = None
             need_save_mask = False
@@ -371,7 +371,7 @@ class ImgtransThread(QThread):
                     blk_list = []
                 self.detect_counter += 1
                 if pcfg.module.keep_exist_textlines:
-                    blk_list = self.imgtrans_proj.pages[imgname] + blk_list
+                    blk_list = self.imgtrans_proj.target_pages[imgname] + blk_list
                     blk_list = sort_regions(blk_list)
                     existed_mask = self.imgtrans_proj.load_mask_by_imgname(imgname)
                     if existed_mask is not None:
@@ -385,7 +385,7 @@ class ImgtransThread(QThread):
                 self.update_detect_progress.emit(self.detect_counter)
 
             if blk_list is None:
-                blk_list = self.imgtrans_proj.pages[imgname] if imgname in self.imgtrans_proj.pages else []
+                blk_list = self.imgtrans_proj.target_pages[imgname] if imgname in self.imgtrans_proj.target_pages else []
 
             if cfg_module.enable_ocr:
                 try:
@@ -462,8 +462,8 @@ class ImgtransThread(QThread):
         
         if cfg_module.enable_translate and low_vram_trans:
             unload_modules(self, ['textdetector', 'inpainter', 'ocr'])
-            for imgname in self.imgtrans_proj.pages:
-                blk_list = self.imgtrans_proj.pages[imgname]
+            for imgname in self.imgtrans_proj.target_pages:
+                blk_list = self.imgtrans_proj.target_pages[imgname]
                 self.translator.translate_textblk_lst(blk_list)
                 self.translate_counter += 1
                 self.update_translate_progress.emit(self.translate_counter)
@@ -625,7 +625,7 @@ class ModuleManager(QObject):
                 LOGGER.warning('Terminating a running translation thread.')
                 self.translate_thread.terminate()
             return
-        self.translate_thread.translatePage(self.imgtrans_proj.pages, page_key)
+        self.translate_thread.translatePage(self.imgtrans_proj.target_pages, page_key)
 
     def inpainterBusy(self):
         return self.inpaint_thread.isRunning()

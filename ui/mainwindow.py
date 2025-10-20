@@ -1271,13 +1271,13 @@ class MainWindow(mainwindow_cls):
 
         all_disabled = pcfg.module.all_stages_disabled()
         if pcfg.module.enable_detect:
-            for page in self.imgtrans_proj.pages:
+            for page in self.imgtrans_proj.target_pages:
                 if not pcfg.module.keep_exist_textlines:
                     self.imgtrans_proj.pages[page].clear()
         else:
             self.st_manager.updateTextBlkList()
             textblk: TextBlock = None
-            for blklist in self.imgtrans_proj.pages.values():
+            for blklist in self.imgtrans_proj.target_pages.values():
                 ffmt_list = []
                 self.backup_blkstyles.append(ffmt_list)
                 for textblk in blklist:

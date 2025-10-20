@@ -388,6 +388,15 @@ class TitleBar(Widget):
         runMenu = QMenu(self.runToolBtn)
         runMenu.addActions(stageActions)
         runMenu.addSeparator()
+
+        run_single_page = QAction(self.tr('Run Single Page'), self)
+        run_single_page.setCheckable(True)
+        run_single_page.setChecked(pcfg.module.run_single_page)
+        def toggle_run_single_page():
+            pcfg.module.run_single_page = not pcfg.module.run_single_page
+        run_single_page.triggered.connect(toggle_run_single_page)
+        runMenu.addAction(run_single_page)
+
         runMenu.addActions([runAction, runWoUpdateTextStyle, translatePageAction])
         self.runToolBtn.setMenu(runMenu)
         self.runToolBtn.setPopupMode(QToolButton.InstantPopup)

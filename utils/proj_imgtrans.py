@@ -110,6 +110,16 @@ class ProjImgTrans:
         if directory is not None:
             self.load(directory)
 
+    @property
+    def target_pages(self):
+        page_key = self.current_img
+        if pcfg.module.run_single_page and page_key in self.pages:
+            return {
+                page_key: self.pages[page_key]
+            }
+        else:
+            return self.pages
+
     def idx2pagename(self, idx: int) -> str:
         return self._idx2pagename[idx]
 
