@@ -73,7 +73,8 @@ class YSGYoloDetector(TextDetectorBase):
             'type': 'check_group'
         },
         'source text is vertical': True,
-        'mask dilate size': 2
+        'mask dilate size': 2,
+        'enhance text segment': True
     }
 
     _load_model_keys = {'model'}
@@ -242,7 +243,19 @@ class YSGYoloDetector(TextDetectorBase):
         if ksize > 0:
             element = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (2 * ksize + 1, 2 * ksize + 1),(ksize, ksize))
             mask = cv2.dilate(mask, element)
-            
+
+        enhance_text_segment = self.get_param_value('enhance text segment')
+        if enhance_text_segment:
+            segments = []
+            for result in blk_list:
+                from mask_enhance.mask_enhancer import get_inpaint_bboxes
+                segments.extend(get_inpaint_bboxes(result.xyxy, img))
+            segments_mask = np.zeros_like(mask, dtype=np.uint8)
+            for bbox in segments:
+                x_min, y_min, x_max, y_max = map(int, bbox)
+                cv2.rectangle(segments_mask, (x_min, y_min), (x_max, y_max), 255, -1)
+            return segments_mask, blk_list
+
         return mask, blk_list
 
     def updateParam(self, param_key: str, param_content):

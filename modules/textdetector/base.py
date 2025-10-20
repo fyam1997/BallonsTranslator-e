@@ -5,7 +5,6 @@ import cv2
 from typing import Union, List, Tuple
 from collections import OrderedDict
 
-from mask_enhance.mask_enhancer import get_inpaint_bboxes
 from utils.textblock import TextBlock
 from utils.proj_imgtrans import ProjImgTrans
 
@@ -50,12 +49,4 @@ class TextDetectorBase(BaseModule):
         for blk in blk_list:
             blk.det_model = self.name
 
-        segments = []
-        for result in blk_list:
-            segments.extend(get_inpaint_bboxes(result.xyxy, img))
-        segments_mask = np.zeros_like(mask, dtype=np.uint8)
-        for bbox in segments:
-            x_min, y_min, x_max, y_max = map(int, bbox)
-            cv2.rectangle(segments_mask, (x_min, y_min), (x_max, y_max), 255, -1)
-
-        return segments_mask, blk_list
+        return mask, blk_list
