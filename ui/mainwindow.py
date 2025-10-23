@@ -29,7 +29,7 @@ from .textedit_area import SourceTextEdit, SelectTextMiniMenu, TransTextEdit
 from .drawingpanel import DrawingPanel
 from .scenetext_manager import SceneTextManager, TextPanel, PasteSrcItemsCommand
 from .mainwindowbars import TitleBar, LeftBar, BottomBar
-from .io_thread import ImgSaveThread, ImportDocThread, ExportDocThread
+from .io_thread import ImgSaveThread, ImportDocThread, ExportDocThread, CloneTranslationThread
 from .custom_widget import Widget, ViewWidget
 from .global_search_widget import GlobalSearchWidget
 from .textedit_commands import GlobalRepalceAllCommand
@@ -122,6 +122,8 @@ class MainWindow(mainwindow_cls):
         self.export_doc_thread.fin_io.connect(self.on_fin_export_doc)
         self.import_doc_thread = ImportDocThread(self)
         self.import_doc_thread.fin_io.connect(self.on_fin_import_doc)
+        self.clone_translation_thread = CloneTranslationThread(self)
+        self.clone_translation_thread.fin_io.connect(lambda: self.OpenProj(self.imgtrans_proj.directory))
 
     def resetStyleSheet(self, reverse_icon: bool = False):
         theme = 'eva-dark' if pcfg.darkmode else 'eva-light'
@@ -509,9 +511,7 @@ class MainWindow(mainwindow_cls):
 
     def clone_translations(self, path: str):
         if self.imgtrans_proj.directory:
-            from utils.clone_translation import clone_translations
-            clone_translations(path, self.imgtrans_proj.directory)
-            self.OpenProj(self.imgtrans_proj.directory)
+            self.clone_translation_thread.clone(self.imgtrans_proj, path)
 
     def updatePageList(self):
         if self.pageList.count() != 0:

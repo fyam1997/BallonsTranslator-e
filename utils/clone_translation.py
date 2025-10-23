@@ -5,15 +5,21 @@ import numpy as np
 
 from utils.io_utils import imwrite, imread
 from utils.proj_imgtrans import ProjImgTrans
+from utils.logger import logger as LOGGER
 
 
-def clone_translations(src, target):
-    src_dir = os.path.expanduser(src)
-    target_dir = os.path.expanduser(target)
-    src_proj = ProjImgTrans(src_dir)
-    target_proj = ProjImgTrans(target_dir)
+def clone_translations(target_proj: ProjImgTrans, src_path: str, fin_page_signal):
+    src_proj = ProjImgTrans(src_path)
+    LOGGER.info(f"Cloning {src_path}({len(src_proj.pages)}) to {target_proj.directory}({len(target_proj.pages)})")
     for src_key, target_key in zip(src_proj.pages, target_proj.pages):
-        clone_page(src_proj, target_proj, src_key, target_key)
+        LOGGER.info(f"Cloning {src_key} to {target_key}")
+        clone_page(
+            src_proj=src_proj,
+            target_proj=target_proj,
+            src_key=src_key,
+            target_key=target_key,
+        )
+        fin_page_signal.emit()
     target_proj.save()
 
 

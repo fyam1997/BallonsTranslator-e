@@ -173,4 +173,28 @@ class ImportDocThread(ImgTransProjFileIOThread):
         self.progress_bar.hide()
         self.fin_io.emit()
 
-    
+
+class CloneTranslationThread(ImgTransProjFileIOThread):
+    _thread_error_msg = 'Failed to clone translation'
+
+    def __init__(self, parent, *args, **kwargs):
+        super().__init__(parent, *args, **kwargs)
+        self.progress_bar.setTaskName(self.tr('Cloning Translations...'))
+        self.target_path = None
+
+    def clone(self, proj: ProjImgTrans, target_path: str):
+        self.proj = proj
+        self.target_path = target_path
+        self.num_pages = proj.num_pages
+        self.job = self._clone
+        self.start()
+        self.progress_bar.updateTaskProgress(0)
+        self.progress_bar.show()
+
+    def _clone(self):
+        from utils.clone_translation import clone_translations
+        clone_translations(self.proj, self.target_path, fin_page_signal=self.fin_page)
+        self.target_path = None
+        self.proj = None
+        self.progress_bar.hide()
+        self.fin_io.emit()
