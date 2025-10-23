@@ -29,7 +29,7 @@ def clone_page(src_proj, target_proj, src_key, target_key):
 
     # Clone inpainted images
     src_raw_img = src_proj.read_img(src_key)
-    target_raw_img = src_proj.read_img(src_key)
+    target_raw_img = target_proj.read_img(target_key)
     src_inpainted_img = src_proj.load_inpainted_by_imgname(src_key)
     clone_rendered(
         src_img=src_raw_img,
