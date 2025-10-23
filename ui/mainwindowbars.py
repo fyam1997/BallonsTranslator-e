@@ -371,6 +371,8 @@ class TitleBar(Widget):
         self.runToolBtn = TitleBarToolBtn(self)
         self.runToolBtn.setText(self.tr('Run'))
 
+        runMenu = QMenu(self.runToolBtn)
+
         self.stageActions = stageActions = [
             QAction(self.tr('Enable Text Dection'), self),
             QAction(self.tr('Enable OCR'), self),
@@ -380,12 +382,12 @@ class TitleBar(Widget):
         for idx, sa in enumerate(stageActions):
             sa.setCheckable(True)
             sa.setChecked(pcfg.module.stage_enabled(idx))
-            sa.triggered.connect(self.stageEnableStateChanged)
+
+            sa.triggered.connect(keep_menu_open(runMenu, self.stageEnableStateChanged))
 
         runAction = QAction(self.tr('Run'), self)
         runWoUpdateTextStyle = QAction(self.tr('Run without update textstyle'), self)
         translatePageAction = QAction(self.tr('Translate page'), self)
-        runMenu = QMenu(self.runToolBtn)
         runMenu.addActions(stageActions)
         runMenu.addSeparator()
 
@@ -394,7 +396,7 @@ class TitleBar(Widget):
         run_single_page.setChecked(pcfg.module.run_single_page)
         def toggle_run_single_page():
             pcfg.module.run_single_page = not pcfg.module.run_single_page
-        run_single_page.triggered.connect(toggle_run_single_page)
+        run_single_page.triggered.connect(keep_menu_open(runMenu, toggle_run_single_page))
         runMenu.addAction(run_single_page)
 
         runMenu.addActions([runAction, runWoUpdateTextStyle, translatePageAction])
@@ -711,3 +713,9 @@ class BottomBar(Widget):
 
     def onTextblockCheckerClicked(self):
         self.textblock_checkchanged.emit()
+
+def keep_menu_open(menu, action):
+    def actual_action():
+        action()
+        menu.exec_(menu.pos())
+    return actual_action
