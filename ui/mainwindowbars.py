@@ -61,6 +61,7 @@ class LeftBar(Widget):
     imgTransChecked = Signal()
     configChecked = Signal()
     open_dir = Signal(str)
+    clone_translations = Signal(str)
     open_json_proj = Signal(str)
     save_proj = Signal()
     save_config = Signal()
@@ -88,6 +89,9 @@ class LeftBar(Widget):
         actionOpenFolder = QAction(self.tr("Open Folder ..."), self)
         actionOpenFolder.triggered.connect(self.onOpenFolder)
         actionOpenFolder.setShortcut(QKeySequence.Open)
+
+        cloneTranslations = QAction(self.tr("Clone Translations ..."), self)
+        cloneTranslations.triggered.connect(self.onCloneTranslations)
 
         actionOpenProj = QAction(self.tr("Open Project ... *.json"), self)
         actionOpenProj.triggered.connect(self.onOpenProj)
@@ -117,7 +121,7 @@ class LeftBar(Widget):
         self.recentMenu = QMenu(self.tr("Open Recent"), self)
         
         openMenu = QMenu(self)
-        openMenu.addActions([actionOpenFolder, actionOpenProj])
+        openMenu.addActions([actionOpenFolder, actionOpenProj, cloneTranslations])
         openMenu.addMenu(self.recentMenu)
         openMenu.addSeparator()
         openMenu.addActions([
@@ -242,6 +246,21 @@ class LeftBar(Widget):
         if osp.exists(folder_path):
             self.updateRecentProjList(folder_path)
             self.open_dir.emit(folder_path)
+
+    def onCloneTranslations(self) -> None:
+        d = None
+        if len(self.recent_proj_list) > 0:
+            for projp in self.recent_proj_list:
+                if not osp.isdir(projp):
+                    projp = osp.dirname(projp)
+                if osp.exists(projp):
+                    d = projp
+                    break
+
+        dialog = QFileDialog()
+        folder_path = str(dialog.getExistingDirectory(self, self.tr("Select Directory"), d))
+        if osp.exists(folder_path):
+            self.clone_translations.emit(folder_path)
 
     def onOpenProj(self):
         dialog = QFileDialog()

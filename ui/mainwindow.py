@@ -142,6 +142,7 @@ class MainWindow(mainwindow_cls):
         self.leftBar.globalSearchChecker.clicked.connect(self.on_set_gsearch_widget)
         self.leftBar.open_dir.connect(self.OpenProj)
         self.leftBar.open_json_proj.connect(self.openJsonProj)
+        self.leftBar.clone_translations.connect(self.clone_translations)
         self.leftBar.save_proj.connect(self.manual_save)
         self.leftBar.export_doc.connect(self.on_export_doc)
         self.leftBar.import_doc.connect(self.on_import_doc)
@@ -505,7 +506,13 @@ class MainWindow(mainwindow_cls):
         except Exception as e:
             self.opening_dir = False
             create_error_dialog(e, self.tr('Failed to load project from') + json_path)
-        
+
+    def clone_translations(self, path: str):
+        if self.imgtrans_proj.directory:
+            from utils.clone_translation import clone_translations
+            clone_translations(path, self.imgtrans_proj.directory)
+            self.OpenProj(self.imgtrans_proj.directory)
+
     def updatePageList(self):
         if self.pageList.count() != 0:
             self.pageList.clear()
