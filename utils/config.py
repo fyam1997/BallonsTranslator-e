@@ -31,6 +31,7 @@ class ModuleConfig(Config):
     load_model_on_demand: bool = False
     empty_runcache: bool = False
     run_single_page: bool = False
+    squeeze_detected_inpaint_boxes: bool = False
 
     def get_params(self, module_key: str, for_saving=False) -> dict:
         d = self[module_key + '_params']

@@ -391,6 +391,14 @@ class TitleBar(Widget):
         runMenu.addActions(stageActions)
         runMenu.addSeparator()
 
+        squeeze_detected_inpaint_boxes = QAction(self.tr('Squeeze Detected Inpaint Boxes'), self)
+        squeeze_detected_inpaint_boxes.setCheckable(True)
+        squeeze_detected_inpaint_boxes.setChecked(pcfg.module.squeeze_detected_inpaint_boxes)
+        def toggle_squeeze_detected_inpaint_boxes():
+            pcfg.module.squeeze_detected_inpaint_boxes = not pcfg.module.squeeze_detected_inpaint_boxes
+        squeeze_detected_inpaint_boxes.triggered.connect(keep_menu_open(runMenu, toggle_squeeze_detected_inpaint_boxes))
+        runMenu.addAction(squeeze_detected_inpaint_boxes)
+
         run_single_page = QAction(self.tr('Run Single Page'), self)
         run_single_page.setCheckable(True)
         run_single_page.setChecked(pcfg.module.run_single_page)
