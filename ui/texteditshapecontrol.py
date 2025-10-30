@@ -89,7 +89,7 @@ class ControlBlockItem(QGraphicsRectItem):
         idx = self.get_angle_idx(angle)
         if self.visible_rect.contains(event.pos()):
             self.setCursor(resizeCursorList[idx % 4])
-        else:
+        elif self.idx == 1:
             self.setCursor(rotateCursorList[idx])
         self.CURSOR_IDX = idx
         return super().hoverMoveEvent(event)
@@ -109,7 +109,7 @@ class ControlBlockItem(QGraphicsRectItem):
                 self.drag_mode = self.DRAG_RESHAPE
                 self.setFlag(QGraphicsItem.GraphicsItemFlag.ItemIsMovable, True)
                 blk_item.startReshape()
-            else:
+            elif self.idx == 1:
                 self.drag_mode = self.DRAG_ROTATE
                 self.setFlag(QGraphicsItem.GraphicsItemFlag.ItemIsMovable, False)
                 preview = self.ctrl.previewPixmap
