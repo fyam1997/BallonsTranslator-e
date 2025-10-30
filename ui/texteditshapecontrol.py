@@ -131,7 +131,7 @@ class ControlBlockItem(QGraphicsRectItem):
         x = max(min(pos.x(), gv.width() - angleLabel.width()), 0)
         y = max(min(pos.y(), gv.height() - angleLabel.height()), 0)
         angleLabel.move(QPoint(x, y))
-        angleLabel.setText("{:.1f}°".format(self.ctrl.rotation()))
+        angleLabel.setText("{:.0f}°".format(self.ctrl.rotation()))
         if not angleLabel.isVisible():
             angleLabel.setVisible(True)
             angleLabel.raise_()
@@ -192,7 +192,7 @@ class ControlBlockItem(QGraphicsRectItem):
         elif self.drag_mode == self.DRAG_ROTATE:   # rotating
             rotate_vec = event.scenePos() - self.ctrl.sceneBoundingRect().center()
             rotation = np.rad2deg(math.atan2(rotate_vec.y(), rotate_vec.x()))
-            self.ctrl.setAngle((rotation+self.rotate_start))
+            self.ctrl.setAngle(int(rotation+self.rotate_start))
             # angle = self.ctrl.rotation()
             angle = self.ctrl.rotation() + 45 * self.idx
             idx = self.get_angle_idx(angle)
@@ -240,7 +240,7 @@ class TextBlkShapeControl(QGraphicsRectItem):
         self.setVisible(False)
 
         self.angleLabel = QLabel(parent)
-        self.angleLabel.setText("{:.1f}°".format(self.rotation()))
+        self.angleLabel.setText("{:.0f}°".format(self.rotation()))
         self.angleLabel.setObjectName("angleLabel")
         self.angleLabel.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.angleLabel.setHidden(True)
