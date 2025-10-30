@@ -636,7 +636,7 @@ class MainWindow(mainwindow_cls):
 
         shortcutTextblock = QShortcut(QKeySequence("W"), self)
         shortcutTextblock.activated.connect(self.shortcutTextblock)
-        shortcutZoomIn = QShortcut(QKeySequence.StandardKey.ZoomIn, self)
+        shortcutZoomIn = QShortcut(QKeySequence("Ctrl+="), self)
         shortcutZoomIn.activated.connect(self.canvas.gv.scale_up_signal)
         shortcutZoomOut = QShortcut(QKeySequence.StandardKey.ZoomOut, self)
         shortcutZoomOut.activated.connect(self.canvas.gv.scale_down_signal)
